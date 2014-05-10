@@ -36,7 +36,7 @@ $ ->
             draggable: false
             editable: false
             fillColor: '#004de8'
-            fillOpacity: 0.20
+            fillOpacity: 0.10
             map: map
             radius: radius
             strokeColor: '#004de8'
