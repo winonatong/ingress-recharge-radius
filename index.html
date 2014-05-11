@@ -53,16 +53,17 @@
     <div id="map"></div>
     <p id="tip">Click the map to show recharge radii for selected agent levels at the position clicked. | <a href="/ingress-recharge-radius/">clear</a></p>
     <form id="options">
-        <!--div class="toggle-toolbar">Collapse</div-->
-        <div><em>Click the map to show recharge radii for selected agent levels at the position clicked. </em></div>
-        <div id="agent_levels"></div>
-        <script type="text/javascript">
-
-            for (var i=1; i<=16; i++) {
-                $('#agent_levels').append('<fieldset class="agent-level"><label class="level-label" for="level'+i+'">Level '+i+'</label> <input class="level" type="checkbox" checked name="level'+i+'" id="level'+i+'" /></fieldset>');
-            }
-        </script>
-        <div><a class="clear-data" href="/ingress-recharge-radius/">Clear Data</a></div>
+        <a class="toggle-toolbar" onclick="$('#main-toolbar').toggle()">Expand/Collapse options</a>
+        <div id="main-toolbar">
+            <div><em>Click the map to show recharge radii for selected agent levels at the position clicked. </em></div>
+            <div id="agent_levels"></div>
+            <script type="text/javascript">
+                for (var i=1; i<=16; i++) {
+                    $('#agent_levels').append('<fieldset class="agent-level"><label class="level-label" for="level'+i+'">Level '+i+'</label> <input class="level" type="checkbox" checked name="level'+i+'" id="level'+i+'" /></fieldset>');
+                }
+            </script>
+            <div><a class="clear-data" href="/ingress-recharge-radius/">Clear Data</a></div>
+        </div>
     </form>
     
     <form id="search">
