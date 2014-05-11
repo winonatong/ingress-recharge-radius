@@ -75,5 +75,6 @@
             renderRadii = null != (b = e.getPlaces()[0]) ? b.geometry.viewport : void 0, null != renderRadii && (c.fitBounds(renderRadii), c.panToBounds(renderRadii))
         })
     })
+
 }).call(this);
 //# sourceMappingURL=gmaps-radius.js.map

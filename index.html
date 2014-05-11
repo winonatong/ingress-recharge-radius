@@ -29,44 +29,26 @@
         form#options { position: absolute; bottom: 5px; left: 100px; background: #fff; border: 1px solid #666; padding: 3px 5px; }
         form#options em { margin: 0 10px; color: #666; }
         form#search input { position: absolute; top: 5px; right: 100px; width: 300px; }
+
+        /*ingress*/
+        form#options input.level {display:inline-block; margin-right:10px;}
     </style>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 </head>
 
 <body>
     <div id="map"></div>
-    <p id="tip">Click anywhere on the map to draw a radius circle, right-click any circle to remove it</p>
+    <p id="tip">Click the map to show selected recharge radii. | <a href="/recharge-radius/">clear</a></p>
     <form id="options">
-        <!--label for="radiusInput">Radius</label> <input type="text" value="250" id="radiusInput" name="radiusInput" /-->
-        <!--label for="unitSelector">Units</label> <select id="unitSelector" name="unitSelector">
-            <option value="mi">Miles</option>
-            <option value="km" selected>Kilometers</option>
-            <option value="ft">Feet</option>
-            <option value="mt">Metres</option>
-            <option value="in">Inches</option>
-            <option value="yd">Yards</option>
-            <option value="fa">Fathoms</option>
-            <option value="na">Nautical miles</option>
-            <option value="ch">Chains</option>
-            <option value="rd">Rods</option>
-            <option value="fr">Furlongs</option>
-        </select-->
-        <label for="level1">Level1</label> <input type="checkbox" name="level1" value="level 1" id="level1" />
-        <label for="level2">Level2</label> <input type="checkbox" name="level2" value="level 2" id="level2" />
-        <label for="level3">Level3</label> <input type="checkbox" name="level3" value="level 3" id="level3" />
-        <label for="level4">Level4</label> <input type="checkbox" name="level4" value="level 4" id="level4" />
-        <label for="level5">Level5</label> <input type="checkbox" name="level5" value="level 5" id="level5" />
-        <label for="level6">Level6</label> <input type="checkbox" name="level6" value="level 6" id="level6" />
-        <label for="level7">Level7</label> <input type="checkbox" name="level7" value="level 7" id="level7" />
-        <label for="level8">Level8</label> <input type="checkbox" name="level8" value="level 8" id="level8" checked />
-        <label for="level9">Level9</label> <input type="checkbox" name="level9" value="level 9" id="level9" checked />
-        <label for="level10">Level10</label> <input type="checkbox" name="level10" value="level 10" id="level10" checked />
-        <label for="level11">Level11</label> <input type="checkbox" name="level11" value="level 11" id="level11" checked />
-        <label for="level12">Level12</label> <input type="checkbox" name="level12" value="level 12" id="level12" checked />
-        <label for="level13">Level13</label> <input type="checkbox" name="level13" value="level 13" id="level13" checked />
-        <label for="level14">Level14</label> <input type="checkbox" name="level14" value="level 14" id="level14" checked />
-        <label for="level15">Level15</label> <input type="checkbox" name="level15" value="level 15" id="level15" checked />
-        <label for="level16">Level16</label> <input type="checkbox" name="level16" value="level 16" id="level16" checked />
-        <em>Click the map to show selected recharge radii. <a href="/recharge-radius/">clear</a></em>
+
+        <fieldset id="agent_levels"></fieldset>
+        <script type="text/javascript">
+
+            for (var i=1; i<=16; i++) {
+                $('#agent_levels').append('<label for="level'+i+'">Level '+i+'</label> <input class="level" type="checkbox" checked name="level'+i+'" id="level'+i+'" />');
+            }
+        </script>
+        <em>Click the map to show selected recharge radii. | <a href="/recharge-radius/">clear</a></em>
     </form>
     
     <form id="search">
@@ -76,5 +58,6 @@
     <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false&amp;libraries=places"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.0/zepto.min.js"></script>
     <script type="text/javascript" src="./static/build/js/gmaps-radius.js"></script>
+
 </body>
 </html>
