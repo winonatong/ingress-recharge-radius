@@ -32,11 +32,11 @@
                 clickable: !0,
                 draggable: !1,
                 editable: !1,
-                fillColor: "#004de8",
-                fillOpacity: .10,
+                fillColor: "#00c35a",
+                fillOpacity: .05,
                 map: c,
                 radius: g,
-                strokeColor: "#004de8",
+                strokeColor: "#00c35a",
                 strokeOpacity: .62,
                 strokeWeight: 1
             }), google.maps.event.addListener(f, "rightclick", d), google.maps.event.addListener(f, "click", a)
@@ -48,11 +48,11 @@
                 clickable: !0,
                 draggable: !1,
                 editable: !1,
-                fillColor: "#004de8",
-                fillOpacity: .10,
+                fillColor: "#00c35a",
+                fillOpacity: .05,
                 map: c,
                 radius: g,
-                strokeColor: "#004de8",
+                strokeColor: "#00c35a",
                 strokeOpacity: .62,
                 strokeWeight: 1
             })
