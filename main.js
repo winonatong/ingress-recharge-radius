@@ -46,14 +46,14 @@ map.on('click', function(event) {
       				radius: radius
       			}).addTo(map);
 
-            /*var myTextLabel = L.marker([event.latlng.lat,event.latlng.lng+(i*2.75)], {
+            var myTextLabel = L.marker([event.latlng.lat+(i*2.25),event.latlng.lng], {
                 icon: L.divIcon({
                     className: 'text-labels',   // Set class for CSS styling
                     html: i 
                 })
                 
                 
-            }).addTo(map);*/
+            }).addTo(map);
         }
     }
 });
