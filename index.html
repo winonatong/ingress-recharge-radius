@@ -1,40 +1,28 @@
-<!doctype html>  
-
-<!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
-<!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
-<!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
-<!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    
-    <title>Ingress Recharge Radius</title>
-    <meta name="description" content="Google Map allowing a radius to be added">
-    <meta name="author" content="Oliver Beattie & Winona Tong">
-    <meta name="viewport" content="width=device-width, user-scalable=no" />
-    
-    <style type="text/css">
-        /*  Copyright (c) 2010, Yahoo! Inc. All rights reserved.
-            Code licensed under the BSD License:
-            http://developer.yahoo.com/yui/license.html
-            version: 3.2.0
-            build: 2676
-        */
-        html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}fieldset,img{border:0;}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}li{list-style:none;}caption,th{text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}q:before,q:after{content:'';}abbr,acronym{border:0;font-variant:normal;}sup{vertical-align:text-top;}sub{vertical-align:text-bottom;}input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;}input,textarea,select{*font-size:100%;}legend{color:#000;}
-        
-        /* Mine */
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Ingress Recharge Radius Tool</title>
+  <meta name="description" content="OpenStreet Map allowing a radius to be added">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
+   integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+   crossorigin=""/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+  <link rel="stylesheet" href="main.min.css">
+  <style>
+          /* Mine */
         body { font-family: Helvetica, Arial, sans-serif; font-size: 12px; }
-        div#map { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-        form#options { position: absolute; bottom: 15px; right: 0px; background: #fff; border: 1px solid #666; padding: 3px 5px; width:175px;}
         form#options em { color: #666; }
         form#search input { position: absolute; top: 5px; right: 105px; width: 50%; }
-
         /*ingress*/
         form#options input.level {display:inline-block; margin-right:10px;}
-        fieldset.agent-level {display:block; margin: 2px 0;}
-        .level-label {display:inline-block; width:75px;}
-        .clear-data {color:#ffffff;
+        fieldset.agent-level {display:block; margin: 2px 0; border:0; display: inline;}
+        fieldset.select-toggle {text-align: center;}
+        fieldset.select-toggle .level-label {width:75px;}
+        .level-label {display:inline-block; width:60px;}
+        .clear-data, .toggle-toolbar {color:#ffffff;
             background-color:#00c35a;
             font-size:14px;
             padding: 6px 14px;
@@ -43,19 +31,19 @@
             margin:0;
             vertical-align: middle;
             text-decoration:none;
-
         line-height: 30px;}
-    </style>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        #controls {width:250px;}
+        .directions {padding:10px 0 10px;}
+  </style>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script>
 </head>
-
 <body>
-    <div id="map"></div>
-    <p id="tip">Click the map to show recharge radii for selected agent levels at the position clicked. | <a href="/ingress-recharge-radius/">clear</a></p>
+
+    <div id="controls">
     <form id="options">
-        <a class="toggle-toolbar" onclick="$('#main-toolbar').toggle()">Expand/Collapse options</a>
+        <div><a class="toggle-toolbar" onclick="$('#main-toolbar').toggle()">Expand/Collapse options</a></div>
         <div id="main-toolbar">
-            <div><em>Click the map to show recharge radii for selected agent levels at the position clicked. </em></div>
+            <div class="directions"><em>Click the map to show recharge radii for selected agent levels at the position clicked. </em></div>
             <div id="agent_levels">
                 <fieldset class="select-toggle"><label class="level-label" for="check-toggle">Uncheck All</label> <input class="level" type="checkbox" checked name="check-toggle" id="checkbox-toggle" /></fieldset>
             </div>
@@ -70,13 +58,12 @@
                                 $("#level"+i).prop('checked', true);
                             }
                             $("label[for='check-toggle']").text('Uncheck All');
-
                         } else {
                             for (var i = 1; i <= 16; i++) {
                                 $("#level"+i).prop('checked', false);
                             }
                             $("label[for='check-toggle']").text('Check All');
-                        }
+                        }   
                     }
                 );
             </script>
@@ -84,24 +71,21 @@
             <div><a class="clear-data" href="/ingress-recharge-radius/">Clear Data</a></div>
         </div>
     </form>
-    
-    <form id="search">
-        <input type="text" id="searchInput" name="searchInput" placeholder="Search for a place&hellip;" />
-    </form>
-    
-    <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false&amp;libraries=places"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.0/zepto.min.js"></script>
-    <script type="text/javascript" src="./static/build/js/gmaps-radius.js"></script>
-    <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-        ga('create', 'UA-50848585-1', 'winonatong.github.io');
-        ga('send', 'pageview');
-
-    </script>
-
+    </div>
+	<div id="mapid"></div>
+  
+	<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
+   integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
+   crossorigin=""></script>
+	<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+  <script src="main.js"></script>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-50848585-1', 'winonatong.github.io');
+    ga('send', 'pageview');
+</script>
 </body>
 </html>
