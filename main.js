@@ -1,4 +1,4 @@
-var map = L.map('mapid').setView([45.5017, -73.5673], 5);
+var map = L.map('mapid').setView([45.5017, -73.5673], 3);
 var radiusInput = document.querySelector('#radiusInput');
 var unitSelector = document.querySelector('#unitSelector');
 
@@ -39,12 +39,21 @@ map.on('click', function(event) {
 	for (var i = 1; i <= 16; i++) {
         if ($("#level"+i).is(':checked')) {
             var radius = (i*250 / earthRadii['km']) * earthRadii['mt'];
-			var circle = L.circle(event.latlng, {
-				color: '#00c35a',
-				fillColor: '#00c35a',
-				fillOpacity: 0.05,
-				radius: radius
-			}).addTo(map);
+      			var circle = L.circle(event.latlng, {
+      				color: '#00c35a',
+      				fillColor: '#00c35a',
+      				fillOpacity: 0.05,
+      				radius: radius
+      			}).addTo(map);
+
+            var myTextLabel = L.marker([event.latlng.lat,event.latlng.lng+(i*2.75)], {
+                icon: L.divIcon({
+                    className: 'text-labels',   // Set class for CSS styling
+                    html: i 
+                })
+                
+                
+            }).addTo(map);
         }
     }
 });
